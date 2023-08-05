@@ -93,6 +93,8 @@ function bookshelf_options_page() {
 		'bookshelf',
 		'bookshelf_options_page_html'
 	);
+	add_submenu_page( 'bookshelf', 'bookshelf Demo', 'bookshelf Demo', 'manage_options', 'bookshelf_demo', 'bookshelf_demo');
+
 }
 
 
@@ -206,3 +208,44 @@ function create_posttype() {
 }
 // Hooking up our function to theme setup
 add_action( 'init', 'create_posttype' );
+
+
+function bookshelf_demo(){
+	?><h3>Add Demo Content</h3>
+	<form method="post" action="<?php echo esc_html( admin_url( 'admin-post.php' ) ); ?>">
+		<div id="universal-message-container">
+			<h2>Universal Message</h2>
+			<div class="options">
+				<p>
+				<input type="hidden" name="action" value="book_shelf_import_data" />
+					<label>click Import Demo Data to import 30 user , 300 book , 50 collection , 1000 wishlisted  </label>
+					<br />
+					 
+				</p>
+		</div><!-- #universal-message-container -->
+		<?php 
+wp_nonce_field( 'acme-settings-save', 'acme-custom-message' ); 
+submit_button('Import Demo Data'); 
+?>
+	</form>
+	<?php
+}
+
+add_action( 'admin_post_book_shelf_import_data', 'book_shelf_import_data_admin_action' );
+ 
+function book_shelf_import_data_admin_action()
+{
+    // Do your stuff here
+	if ( isset($_POST['action'])  && $_POST['action'] =='book_shelf_import_data')
+	{
+		 
+		include BookShelf_PLUGIN_FILE.'/inc/demo_content.php';
+		add_demo_content();
+
+		wp_redirect( $_SERVER['HTTP_REFERER'] .'&v=1234');
+		exit();
+    
+	}
+	
+
+}
