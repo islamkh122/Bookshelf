@@ -30,4 +30,9 @@ it is pretty simple<br>
 6- select choose file and navigate to plugin zip file <br>
 7- press install , and after installation press activate <br>
 
+# what will happen in background 
+our plugin will add 3 pages **All Books** , **Books Collections** , **My Shelf** for view our work <br>
+1- **All Books** : will list all books in site and allow to search by title , year , author name and puplication year <br>
+2- **Books Collections** : will list all collection or view single collection by shared link <br>
+3- **My Shelf** : if user login he will see 3 tabs of his books ( where user can add new book ) , collections and wishlist <br>
     
