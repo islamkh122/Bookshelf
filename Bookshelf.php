@@ -47,7 +47,7 @@ function wpse_load_plugin_css() {
     wp_localize_script( 'ajax-script', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' )  ) );
     wp_enqueue_script('owl-carousel-script', $plugin_url . 'assets/js/owl.carousel.min.js',  array( 'jquery' ));
 
-    wp_enqueue_script('book_shelf-script', $plugin_url . 'assets/js/book_shelf.js?v=1.5.4',  array( 'jquery' ));
+    wp_enqueue_script('book_shelf-script', $plugin_url . 'assets/js/book_shelf.js?v=1.5.6',  array( 'jquery' ));
      
 }
 add_action( 'wp_enqueue_scripts', 'wpse_load_plugin_css' );
@@ -55,66 +55,8 @@ add_action( 'wp_enqueue_scripts', 'wpse_load_plugin_css' );
 function ti_custom_javascript() {
     ?>
         <script>
-             
-            jQuery(document).on("click", '.toggle_wishlist', function() {
-                var data = {
-                    'action': 'toggle_wishlist',
-                    'book_id': jQuery(this).data('class')
-                };
-                var elem = jQuery(this);
-                console.log( elem);
-                jQuery.post('<?= admin_url('admin-ajax.php')?>', data, function(response)   {
-                    
-                    if (response == 'removed'){
-                        elem.html('<i class="fas fa-heart text-primary mr-1"></i>Add To WishList');
-                    } else { console.log( elem);
-                        elem.html('<i class="fas fa-trash text-danger  mr-1"></i>Exit WishList');
-                    }
-                });
-            });
-
-            jQuery(document).on("click", '.view-details', function() {
-                // get book info by ajax
-
-                jQuery('#myModal .book_title').text('-');
-                jQuery('#myModal .cover_link').attr('src','#');
-                jQuery('#myModal .book_author').text('-');
-                jQuery('#myModal .book_genre').text('-');
-                jQuery('#myModal .book_owner').text('-');
-                jQuery('#myModal .book_collection').text('-');
-                jQuery('#myModal .book_year').text('-');
-                jQuery('#myModal .book_description').text('-');
-                
-                
-                var data = {
-                    'action': 'get_single_book_details',
-                    'book_id': jQuery(this).data('class')
-                };
-
-                // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-                jQuery.post('<?= admin_url('admin-ajax.php')?>', data, function(response) {
-                    var response_data = response.data.data;
-                    // console.log(response_data.title);
-                     jQuery('#myModal .book_title').text(response_data.title);
-                     jQuery('#myModal .cover_link').attr('src',response_data.cover_link);
-                     jQuery('#myModal .book_author').text(response_data.book_author);
-                     jQuery('#myModal .book_genre').text(response_data.book_genre);
-                     jQuery('#myModal .book_owner').text(response_data.owner_name);
-                     jQuery('#myModal .book_collection').text(response_data.book_collection);
-                     jQuery('#myModal .book_year').text(response_data.book_year);
-                     jQuery('#myModal .book_description').text(response_data.book_description);
-                     jQuery('#myModal .book_collection').html(response_data.book_collection);
-                     jQuery('#myModal .wishlist').html(response_data.wishlist);
-
-                     jQuery('#myModal .also_wishlist').html(response_data.also_wishlist);
-
-                      
-
-                     
-                     jQuery('#myModal').fadeIn();
-                });
-
-            });
+             var ajax_url = '<?= admin_url('admin-ajax.php')?>';
+            
         </script>
     <?php
 }

@@ -118,12 +118,12 @@ function list_books_func( $attributes ){
             $combinedArray = array_merge($posts_by_title, $posts_by_author);
 
             $args['post__in'] = $combinedArray;
-
+            // Execute the query and get the post IDs.
+            #$post_ids = $wpdb->get_col($query);
         }
         
 
-        // Execute the query and get the post IDs.
-        $post_ids = $wpdb->get_col($query);
+        
     }
 
      

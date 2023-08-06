@@ -196,3 +196,63 @@ jQuery(document).ready(function(){
     jQuery(this).html(jQuery(this).html()+' ... link copied');
 
   });
+
+  jQuery(document).on("click", '.toggle_wishlist', function() {
+    var data = {
+        'action': 'toggle_wishlist',
+        'book_id': jQuery(this).data('class')
+    };
+    var elem = jQuery(this);
+    console.log( elem);
+    jQuery.post(ajax_url, data, function(response)   {
+        
+        if (response == 'removed'){
+            elem.html('<i class="fas fa-heart text-primary mr-1"></i>Add To WishList');
+        } else { console.log( elem);
+            elem.html('<i class="fas fa-trash text-danger  mr-1"></i>Exit WishList');
+        }
+    });
+});
+
+jQuery(document).on("click", '.view-details', function() {
+    // get book info by ajax
+
+    jQuery('#myModal .book_title').text('-');
+    jQuery('#myModal .cover_link').attr('src','#');
+    jQuery('#myModal .book_author').text('-');
+    jQuery('#myModal .book_genre').text('-');
+    jQuery('#myModal .book_owner').text('-');
+    jQuery('#myModal .book_collection').text('-');
+    jQuery('#myModal .book_year').text('-');
+    jQuery('#myModal .book_description').text('-');
+    
+    
+    var data = {
+        'action': 'get_single_book_details',
+        'book_id': jQuery(this).data('class')
+    };
+
+    // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+    jQuery.post(ajax_url , data, function(response) {
+        var response_data = response.data.data;
+        // console.log(response_data.title);
+         jQuery('#myModal .book_title').text(response_data.title);
+         jQuery('#myModal .cover_link').attr('src',response_data.cover_link);
+         jQuery('#myModal .book_author').text(response_data.book_author);
+         jQuery('#myModal .book_genre').text(response_data.book_genre);
+         jQuery('#myModal .book_owner').text(response_data.owner_name);
+         jQuery('#myModal .book_collection').text(response_data.book_collection);
+         jQuery('#myModal .book_year').text(response_data.book_year);
+         jQuery('#myModal .book_description').text(response_data.book_description);
+         jQuery('#myModal .book_collection').html(response_data.book_collection);
+         jQuery('#myModal .wishlist').html(response_data.wishlist);
+
+         jQuery('#myModal .also_wishlist').html(response_data.also_wishlist);
+
+          
+
+         
+         jQuery('#myModal').fadeIn();
+    });
+
+});
