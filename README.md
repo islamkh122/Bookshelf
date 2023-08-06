@@ -7,3 +7,27 @@ Background Story:
 Our hero, an innovative full-stack developer, was touched by their plight and decided to help. He planned to create a magical artefact, a WordPress plugin named 'Bookshelf'. This plugin would allow the citizens to maintain an online record of their book collections, share their collection with friends, and add books they wished to buy to a wishlist. 
 
 It's your turn to take the role of the developer hero and help the citizens of Webville!"
+
+# Task:
+
+Create a WordPress plugin named 'Bookshelf', which allows users to:
+
+1. Add Books: Users should be able to add books to their bookshelf. Details to include would be - Title, Author, Genre, Publication Year, Cover Image and a short description of the book.
+
+2. View Collection: The plugin should display the users' book collection in an attractive and user-friendly layout.
+
+3. Share Collection: Provide an option to share the user's book collection via a unique URL.
+
+4. Manage Wishlist: Apart from the books owned, users should be able to add books to a wishlist.
+
+# install
+it is pretty simple<br>
+1- download plugin ( make sure it is .zip file )<br>
+2- go to your wordpress dashboard then<br>
+3- select **plugins**<br>
+4-   select  **add new**<br>
+5-  press  **upload plugin**<br>
+6- select choose file and navigate to plugin zip file <br>
+7- press install , and after installation press activate <br>
+
+    
