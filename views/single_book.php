@@ -19,7 +19,7 @@
         <div class="btn btn-sm text-dark p-0 view-details" data-class="<?=$id ?>"><i class="fas fa-eye text-primary mr-1"></i>View Detail</div>
         <?php 
          
-            if ( $user->ID != get_current_user_id() || 1  ) { 
+            if ( $user->ID != get_current_user_id() && is_user_logged_in()  ) { 
                 if (  ! get_wishlist( get_current_user_id() , $id )){ ?>
 
                     <div class="btn btn-sm text-dark p-0 toggle_wishlist"   data-class="<?=$id ?>">

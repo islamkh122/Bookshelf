@@ -9654,3 +9654,9 @@ a.text-dark:hover, a.text-dark:focus {
       h6{
         text-transform: initial;
       }
+
+      span.share-collection {
+    cursor: pointer;
+    color: #D19C97;
+    margin: 0 10px;
+}

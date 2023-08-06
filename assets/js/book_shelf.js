@@ -188,3 +188,11 @@ jQuery(document).ready(function(){
 
 
   });
+
+  // share link 
+  jQuery(document).on("click", '.share-collection', function() {
+    var textToCopy = jQuery(this).data('class');
+    navigator.clipboard.writeText(textToCopy);
+    jQuery(this).html(jQuery(this).html()+' ... link copied');
+
+  });

@@ -17,12 +17,12 @@ function bookshelf_settings_init() {
 	);
 
 	// Register a new field in the "bookshelf_section_developers" section, inside the "bookshelf" page.
-	add_settings_field(
+	/*add_settings_field(
 		'bookshelf_field_pdf_allow', __( 'Allow pdf upload / download', 'bookshelf' ),  'bookshelf_field_allow_pdf', 'bookshelf' ,'bookshelf_section_developers');
 
     add_settings_field(
 		'bookshelf_field_theme_color', __( 'Plugin Color Hex Code' ),  'bookshelf_field_theme_color', 'bookshelf' ,'bookshelf_section_developers');
-
+*/
 }
 
 /**
@@ -205,6 +205,29 @@ function create_posttype() {
   
         )
     );
+
+	// Register Custom Taxonomy 'Book Categories' for 'shelf_book' post type
+    register_taxonomy('book_category', 'shelf_book', array(
+        'hierarchical' => true,
+        'labels' => array(
+            'name' => __('Book Categories'),
+            'singular_name' => __('Book Category'),
+            'search_items' => __('Search Book Categories'),
+            'all_items' => __('All Book Categories'),
+            'parent_item' => __('Parent Book Category'),
+            'parent_item_colon' => __('Parent Book Category:'),
+            'edit_item' => __('Edit Book Category'),
+            'update_item' => __('Update Book Category'),
+            'add_new_item' => __('Add New Book Category'),
+            'new_item_name' => __('New Book Category Name'),
+            'menu_name' => __('Book Categories'),
+        ),
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'book-category'),
+        'show_in_rest' => true,
+    ));
 }
 // Hooking up our function to theme setup
 add_action( 'init', 'create_posttype' );
@@ -249,3 +272,25 @@ function book_shelf_import_data_admin_action()
 	
 
 }
+
+// add collection route 
+flush_rewrite_rules();
+function custom_rewrite_rule() {
+    add_rewrite_rule(
+        'books-collections/collection/([0-9]+)/?$',
+        'index.php?pagename=books-collections&collection=$matches[1]',
+        'top'
+    );
+}
+add_action('init', 'custom_rewrite_rule');
+
+function custom_rewrite_tag() {
+    add_rewrite_tag('%collection%', '([0-9]+)');
+}
+add_action('init', 'custom_rewrite_tag');
+
+function custom_query_vars($query_vars) {
+    $query_vars[] = 'collection';
+    return $query_vars;
+}
+add_filter('query_vars', 'custom_query_vars');

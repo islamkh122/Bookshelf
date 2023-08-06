@@ -39,7 +39,7 @@ function wpse_load_plugin_css() {
     $plugin_url = BookShelf_PLUGIN_URL;
     wp_enqueue_style( 'all-min-css', $plugin_url . 'assets/css/all.min.css' );
     wp_enqueue_style( 'fstdropdown-min-css', $plugin_url . 'assets/css/fstdropdown.min.css' );
-    wp_enqueue_style( 'book_shelf_style-css', $plugin_url . 'assets/css/book_shelf_style.css?v=2.2.1' );
+    wp_enqueue_style( 'book_shelf_style-css', $plugin_url . 'assets/css/book_shelf_style.css?v=2.2.2' );
     wp_enqueue_style( 'owl.carousel.min-css', $plugin_url . 'assets/css/owl.carousel.min.css' );
     
     wp_enqueue_script('bootstrabe-bundle-script', $plugin_url . 'assets/js/bootstrap.bundle.min.js',  array( 'jquery' ));
@@ -47,7 +47,7 @@ function wpse_load_plugin_css() {
     wp_localize_script( 'ajax-script', 'ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' )  ) );
     wp_enqueue_script('owl-carousel-script', $plugin_url . 'assets/js/owl.carousel.min.js',  array( 'jquery' ));
 
-    wp_enqueue_script('book_shelf-script', $plugin_url . 'assets/js/book_shelf.js?v=1.5.3',  array( 'jquery' ));
+    wp_enqueue_script('book_shelf-script', $plugin_url . 'assets/js/book_shelf.js?v=1.5.4',  array( 'jquery' ));
      
 }
 add_action( 'wp_enqueue_scripts', 'wpse_load_plugin_css' );
@@ -103,7 +103,7 @@ function ti_custom_javascript() {
                      jQuery('#myModal .book_collection').text(response_data.book_collection);
                      jQuery('#myModal .book_year').text(response_data.book_year);
                      jQuery('#myModal .book_description').text(response_data.book_description);
-                     jQuery('#myModal .book_collection').text(response_data.book_collection);
+                     jQuery('#myModal .book_collection').html(response_data.book_collection);
                      jQuery('#myModal .wishlist').html(response_data.wishlist);
 
                      jQuery('#myModal .also_wishlist').html(response_data.also_wishlist);

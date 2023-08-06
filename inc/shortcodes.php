@@ -1,28 +1,20 @@
 <?php
 function shelf_books_func( $atts ){
     
-    if (is_user_logged_in()){
-        ob_start();
-        include (BookShelf_PLUGIN_FILE. '/views/all_books.php');
-        $return_string = ob_get_clean();
-        return $return_string;
-    } else {
-        return  '<div class="alert alert-danger">sorry you need to login first.</div>';
-    }
+    ob_start();
+    include (BookShelf_PLUGIN_FILE. '/views/all_books.php');
+    $return_string = ob_get_clean();
+    return $return_string;
     
 }
 add_shortcode( 'shelf_books', 'shelf_books_func' );
 
 function shelf_my_shelf_func( $atts ){
     
-    if (is_user_logged_in()){
     ob_start();
     include (BookShelf_PLUGIN_FILE. '/views/shelf_my_shelf.php');
     $return_string = ob_get_clean();
 	return $return_string;
-    } else {
-        return  '<div class="alert alert-danger">sorry you need to login first.</div>';
-    }
 }
 add_shortcode( 'shelf_my_shelf', 'shelf_my_shelf_func' );
 
@@ -62,6 +54,7 @@ function list_books_func( $attributes ){
     global $wpdb;
     $atts = shortcode_atts(array(
             'owner' => false, 
+            'collection_id' => false, 
     ), $attributes);
 
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -79,6 +72,16 @@ function list_books_func( $attributes ){
 
     if ($atts['owner']){
             $args['author'] =  $atts['owner'] ; 
+    }
+    if ($atts['collection_id']){
+        $args['tax_query'] =  array(
+            array(
+                'taxonomy' => 'book_category',
+                'field' => 'term_id',
+                'terms' => $atts['collection_id'],
+            ),
+        ) ; 
+        
     }
 
     if (isset($_GET['s_genre'])){
@@ -100,15 +103,7 @@ function list_books_func( $attributes ){
         $s_text = preg_replace( '/[^a-zA-Z0-9 ]/m',   '',$_GET['s_text']);
         /*$args['title'] = $s_text;*/
         if (!empty($s_text)){
-            /*$args['meta_query'] = array(
-                'relation' => 'OR',  
-                array(
-                    'key' => 'book_author',
-                    'value' => $s_text,
-                    'compare' => 'LIKE',  
-                ),
-                
-            );*/
+             
             // get by post title 
             $query = $wpdb->prepare(" SELECT ID FROM {$wpdb->posts} WHERE post_title LIKE %s AND post_type = %s AND post_status = %s ", 
                         '%' . $s_text . '%', 'shelf_book', 'publish');
@@ -127,8 +122,8 @@ function list_books_func( $attributes ){
         }
         
 
-// Execute the query and get the post IDs.
-$post_ids = $wpdb->get_col($query);
+        // Execute the query and get the post IDs.
+        $post_ids = $wpdb->get_col($query);
     }
 
      
@@ -185,26 +180,43 @@ add_shortcode( 'list_collections', 'list_collections_func' );
 function list_collections_func( $attributes ){
     $atts = shortcode_atts(array(
             'owner' => false, 
+            'collection_id'=>false ,
     ), $attributes);
 
     if ($atts['owner']){
             $collections_list = get_all_user_collection() ; 
+    } else {
+        $collections_array  = get_all_collection();
+        $collections_list   = $collections_array['categories'];
+        $total_terms        = $collections_array['total_terms'];
+        $total_pages        = $collections_array['total_pages'];
+        $current_page        = $collections_array['current_page'];
+        
     }
-
+     
+     
+     
      
     if (count($collections_list)){
         $str = '';
-        foreach($collections_list as $collection){
+        foreach($collections_list as $collection_id => $collection){
             $args = array(
                 'post_type'=>'shelf_book',
-                'meta_key' => 'book_collection',
+                /*'meta_key' => 'book_collection',
                 'meta_query' => array(
                     array(
                         'key' => 'book_collection',
                         'value' => $collection['meta_value'],
                         'compare' => '=',
                     )
-                )
+                )*/
+                'tax_query' => array(
+                    array(
+                        'taxonomy' => 'book_category',
+                        'field' => 'term_id',
+                        'terms' => $collection_id,
+                    ),
+                ),
              );
             $collection_books =  new WP_Query($args);
              
@@ -216,7 +228,7 @@ function list_collections_func( $attributes ){
     
                 $str .= '<div  class="col-12 pb-1 row-collection ">
                             <div class="col-12 pb-1">
-                                <h3> '.$collection['meta_value'].'</h3> 
+                                <h3> '.$collection .'</h3> 
                             </div>
                             <div class="col-12 pb-1">
                                 <h6>owned by '.$owner_name.' and contain '.$collection_books->post_count.' book.</h6>
@@ -229,11 +241,34 @@ function list_collections_func( $attributes ){
             }
            
         }
-            
+        
+        // pagenation 
+        if (isset($total_pages) && $total_pages > 1) {
+            $str .= '<div class="pagination pagenat_routes">';
+            for ($i = 1; $i <= $total_pages; $i++) {
+                $current_class = ($i === $current_page) ? 'current' : '';
+                $str .= '<a href="?paged=' . $i . '" class="page-numbers ' . $current_class . '">' . $i . '</a>';
+            }
+            $str .= '</div>';
+        }
 
         return $str; 
     }
 
 }
 
- 
+//shelf_collections
+
+add_shortcode( 'shelf_collections', 'shelf_collections_func' );
+
+function shelf_collections_func(  ){
+    $collection_id = get_query_var('collection');
+    if ($collection_id && false)
+        return '..............';
+    else {
+        ob_start();
+        include (BookShelf_PLUGIN_FILE. '/views/all_collections.php');
+        $return_string = ob_get_clean();
+        return $return_string;
+    }
+}

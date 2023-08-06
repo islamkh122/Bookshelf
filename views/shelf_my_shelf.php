@@ -7,12 +7,16 @@
       <?php
          include (BookShelf_PLUGIN_FILE. '/views/side_bar.php');
          
-         $count_my_books = count(get_posts(['post_author'=>get_current_user_id(), 'post_type'     => 'shelf_book','posts_per_page'=>-1]));
+         
          
          ?>
       <!-- Shop Sidebar End -->
       <!-- Shop Product Start -->
       <div class="col-lg-9 col-md-12">
+         <?php if (is_user_logged_in()) { ?> 
+         <?php 
+            $count_my_books = count(get_posts(['post_author'=>get_current_user_id(), 'post_type'     => 'shelf_book','posts_per_page'=>-1]));
+         ?>
          <!-- Rounded tabs -->
          <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav px-0">
             <li class="nav-item flex-sm-fill">
@@ -48,6 +52,9 @@
                </div>
             </div>
          </div>
+         <?php } else { ?> 
+         <div class="alert alert-danger"> you need to <a href="<?=wp_login_url(get_permalink())?>">login</a> first. </div>  
+         <?php } ?>
       </div>
       <!-- Shop Product End -->
    </div>

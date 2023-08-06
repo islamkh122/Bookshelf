@@ -79,8 +79,8 @@
                             ?>
                         <select class="fstdropdown-select" name="book_collection" id="book_collection" name="book_collection"  required>
                             <option value="">select collection</option>
-                                <?php  foreach ($user_collections as $collection ) { ?> 
-                                    <option><?=$collection['meta_value']?></option>
+                                <?php  foreach ($user_collections as $key => $collection_name ) { ?> 
+                                    <option value="<?=$key?>"><?=$collection_name?></option>
                                 <?php }  ?>
                                  
                                 <option>other</option>
@@ -100,11 +100,11 @@
                         <input type="file" accept="image/*" class="form-control-file" id="book_cover" name="book_cover"  required>
                         <div class="alert alert-danger show_error  my-1 p-2" style="display: none;"></div>
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="book_cover">Book PDF</label>
                         <input type="file" accept="application/pdf" class="form-control-file" name="book_pdf"  id="book_pdf"  >
                         <div class="alert alert-danger show_error  my-1 p-2" style="display: none;"></div>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label for="book_description">Book Description</label>
                         <textarea class="form-control" id="book_description" name="book_description"  rows="3"

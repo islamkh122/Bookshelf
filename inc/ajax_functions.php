@@ -113,8 +113,13 @@ function add_new_book_form(){
     update_post_meta($book_id,'book_author',$book_author);
     update_post_meta($book_id,'publication_year',$publication_year);
     update_post_meta($book_id,'book_genre', $book_genre_name !='' ? $book_genre_name : $book_genre);
-    if (!empty($book_collection))
-        update_post_meta($book_id,'book_collection', $book_collection_name !='' ? $book_collection_name : $book_collection);
+    if (!empty($book_collection)){
+        //update_post_meta($book_id,'book_collection', );
+        $collection_name = $book_collection_name !='' ? $book_collection_name : $book_collection;
+        $collection_id = book_category($collection_name);
+        wp_set_post_terms($book_id, $collection_id, 'book_category', true);
+    }
+        
     
     
     unset($_SESSION['form_data']);
@@ -139,13 +144,16 @@ function get_single_book_details_handler(){
         if ($single_book) {
 
             $wishlist = '';
-            if ( get_wishlist(get_current_user_id() , $id) ) {
-                $wishlist = '<div class="btn btn-sm   p-0 toggle_wishlist" data-class="'.$id .'">
-                <i class="fas fa-trash text-danger  mr-1"></i>Exit WishList</div>';
-            } else {
-                $wishlist = '<div class="btn btn-sm text-dark p-0 toggle_wishlist"   data-class="'.$id .'">
-                <i class="fas fa-heart text-primary mr-1"></i>Add To WishList</div>';
+            if (is_user_logged_in() && $user->ID != get_current_user_id()){
+                if ( get_wishlist(get_current_user_id() , $id) ) {
+                    $wishlist = '<div class="btn btn-sm   p-0 toggle_wishlist" data-class="'.$id .'">
+                    <i class="fas fa-trash text-danger  mr-1"></i>Exit WishList</div>';
+                } else {
+                    $wishlist = '<div class="btn btn-sm text-dark p-0 toggle_wishlist"   data-class="'.$id .'">
+                    <i class="fas fa-heart text-primary mr-1"></i>Add To WishList</div>';
+                }
             }
+            
 
             $also_wishlist ='';
             $book_wishlist = get_post_meta($id , 'book_wishlist');
@@ -153,14 +161,28 @@ function get_single_book_details_handler(){
                 $also_wishlist = '<div class="my-4 alert alert-info">'.count($book_wishlist).' also has added this to thair wishlist</div>';
             }
 
+            $collections = wp_get_post_terms($id, 'book_category');
+            $collection_str ='-';
+            if (count($collections) && $collection = ($collections[0])){
+                $collection_id =  $collection->term_id;
+                 
+                $collection_link = $collection_id && get_page_permalink_from_name('Books Collections')?
+                                    get_page_permalink_from_name('Books Collections').'collection/'.$collection_id : '';
 
+                $collection_str = $collection->name.'<span class="share-collection" data-class="'. $collection_link.'">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+                share collection link</span>';
+
+            }
+             
+             
             $details = array(
                 'title'=>$single_book->post_title,
                 'cover_link'=>$thumbnail,
                 'book_genre'=>get_post_meta($id ,'book_genre',true),
                 'book_author'=>get_post_meta($id ,'book_author',true),
                 'book_year'=>get_post_meta($id ,'publication_year',true),
-                'book_collection'=>get_post_meta($id ,'book_collection',true),
+                'book_collection'=>$collection_str,
                 'owner_name'=>$owner_name,
                 'book_description'=>$single_book->post_content,
                 'wishlist'=>$wishlist,
