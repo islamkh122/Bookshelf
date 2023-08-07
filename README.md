@@ -37,6 +37,8 @@ our plugin will add 3 pages **All Books** , **Books Collections** , **My Shelf**
 3- **My Shelf** : if user login he will see 3 tabs of his books ( where user can add new book ) , collections and wishlist <br>
 our plugin als will add in admin dashboard :<br>
 1- new custom posts menu link called **shelf book** contain : books list and books categories which is another meaning of user collections <br>
-2- new admin link called  **bookshelf Options** contain plugin options ( you will see it empty for now ) and plugin demo where you can import demo to test plugin <br>
+2- new admin link called  **bookshelf Options** contain plugin options ( you will see it empty for now ) <br>
+3- **bookshelf  demo** where you can import demo to test plugin (be patient it will take several minutes ) <br>
+
 
     
