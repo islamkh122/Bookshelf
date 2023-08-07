@@ -36,9 +36,9 @@ our plugin will add 3 pages **All Books** , **Books Collections** , **My Shelf**
 2- **Books Collections** : will list all collection or view single collection by shared link [see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/all-collections-page.png)<br>
 3- **My Shelf** : if user login he will see 3 tabs of his books ( where user can add new book ) , collections and wishlist [see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/my-shelf-page.png) <br>
 our plugin als will add in admin dashboard :<br>
-1- new custom posts menu link called **shelf book** contain : books list and books categories which is another meaning of user collections[see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/admin-shelf-books.png) <br>
+1- new custom posts menu link called **shelf book** contain : books list and books categories which is another meaning of user collections [see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/admin-shelf-books.png) <br>
 2- new admin link called  **bookshelf Options** contain plugin options ( you will see it empty for now ) <br>
-3- **bookshelf  demo** where you can import demo to test plugin (be patient it will take several minutes )[see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/admin-demo-import.png) <br>
+3- **bookshelf  demo** where you can import demo to test plugin (be patient it will take several minutes ) [see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/admin-demo-import.png) <br>
 
 
     
