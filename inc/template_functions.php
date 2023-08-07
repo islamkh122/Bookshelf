@@ -48,7 +48,7 @@ function get_all_collection(){
     $taxonomy = 'book_category';
 
     $taxonomy = 'book_category';
-    $terms_per_page = 3;
+    $terms_per_page = 12;
     $current_page = get_query_var('paged') ? absint(get_query_var('paged')) : 1;
      
 

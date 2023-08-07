@@ -202,14 +202,8 @@ function list_collections_func( $attributes ){
         foreach($collections_list as $collection_id => $collection){
             $args = array(
                 'post_type'=>'shelf_book',
-                /*'meta_key' => 'book_collection',
-                'meta_query' => array(
-                    array(
-                        'key' => 'book_collection',
-                        'value' => $collection['meta_value'],
-                        'compare' => '=',
-                    )
-                )*/
+                'posts_per_page' => -1,
+
                 'tax_query' => array(
                     array(
                         'taxonomy' => 'book_category',

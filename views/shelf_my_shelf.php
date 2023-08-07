@@ -15,7 +15,8 @@
       <div class="col-lg-9 col-md-12">
          <?php if (is_user_logged_in()) { ?> 
          <?php 
-            $count_my_books = count(get_posts(['post_author'=>get_current_user_id(), 'post_type'     => 'shelf_book','posts_per_page'=>-1]));
+         
+            $count_my_books = count(get_posts(['author'=>get_current_user_id(), 'post_type'     => 'shelf_book','posts_per_page'=>-1]));
          ?>
          <!-- Rounded tabs -->
          <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav px-0">

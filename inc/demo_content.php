@@ -49,7 +49,7 @@ function add_demo_content(){
         if (count ($users[$user_key][2])){
             $user_collections = $users[$user_key][2]; 
             $collection_name = $user_collections[array_rand($user_collections)];
-            $collection_id = book_category($collection_name);
+            $collection_id = book_category($collection_name , $user_wp);
             wp_set_post_terms($book_id, $collection_id, 'book_category', true);
             //update_post_meta($book_id,'book_collection', $user_collections[array_rand($user_collections)]);
         }
