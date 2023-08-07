@@ -55,7 +55,7 @@ function add_demo_content(){
         }
 
         // ADD to wishlist 
-        $rand_users_number = rand(5 , 19);
+        $rand_users_number = rand(2 , 6);
         $random_users = array_rand($users, $rand_users_number );
         //var_dump($random_users); die ;
         foreach ( $random_users as $rand_user_key){
