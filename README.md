@@ -42,7 +42,7 @@ our plugin also will add in admin dashboard :<br>
 3- **bookshelf  demo** where you can import demo to test plugin (be patient it will take several minutes ) [see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/admin-demo-import.png) <br>
 # for any question or information
 1- [linkedin](https://www.linkedin.com/in/islam-khamis-494107124/)<br>
-2- [my gmail](//mailto:aklisamu77@gmail.com)<br>
+2- aklisamu77@gmail.com<br>
 3- [behance](https://www.behance.net/islamkhami48e8)<br>
 Thanks and Dankeschön 
 ****
