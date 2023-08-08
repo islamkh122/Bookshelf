@@ -33,7 +33,7 @@ it is pretty simple<br>
 # what will plugin add 
 our plugin will add 3 pages **All Books** , **Books Collections** , **My Shelf** for view our work <br>
 1- **All Books** : will list all books in site and allow to search by title , year , author name and puplication year [see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/all-books-page.png) <br>
-**note that in single page details you can share collection link , if signle share link not working go to dashboard => setting => permalinks and press save changes**<br>
+**note that in single page details you can share collection link , if single share link not working go to dashboard => setting => permalinks and press save changes**<br>
 2- **Books Collections** : will list all collection or view single collection by shared link [see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/all-collections-page.png)<br>
 3- **My Shelf** : if user login he will see 3 tabs of his books ( where user can add new book ) , collections and wishlist [see image](https://github.com/islamkh122/Bookshelf/blob/main/assets/screenshots/my-shelf-page.png) <br>
 our plugin also will add in admin dashboard :<br>
